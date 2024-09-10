@@ -30,7 +30,10 @@ The Default Risk Predictor is a Flask-based application that predicts whether a 
   * The predicted loan status (default or non-default).
   * Risk percentage for providing a loan to the borrower.
   
-* ### Click on the "Reset" button to reset the app
+* ### Click on the "Reset" button to:
+  * reset the app
+* ### Click on the "Go to Home" button  to:
+  * use the predictor again with new values
 
 ## Model Information
 
