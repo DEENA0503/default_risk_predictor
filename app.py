@@ -1,13 +1,13 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, render_template
+import matplotlib.pyplot as plt 
+import matplotlib
+matplotlib.use('Agg')
 import pickle
 import numpy as np
 import pandas as pd
 import joblib
 
-# model_path='best_pipeline_xgb.pkl'
-# with open(model_path, 'rb') as file:
-#     model=pickle.load(file)
-# Load your model
+
 model = joblib.load('best_pipeline_lgb.pkl')
 
 app=Flask(__name__)
@@ -36,7 +36,7 @@ def predict():
     'Credit History': request.form.get('creditHistory')
     }
 
-    # Convert data to DataFrame with the correct column names
+    # convert data to dataFrame with the correct column names
     cols = ['person_age', 'person_income', 'person_home_ownership',
        'person_emp_length', 'loan_intent', 'loan_grade', 'loan_amnt',
        'loan_percent_income', 'cb_person_default_on_file',
@@ -45,31 +45,56 @@ def predict():
 
     input_data = pd.DataFrame([[
         int(data['Age']), 
-        int(data['Annual Income']), 
+        int(data['Annual Income']), # /100
         data['Home Ownership'],
         float(data['Employment Length']),
         data['Loan Intent'], 
         data['Loan Grade'], 
-        int(data['Loan Amount']), 
+        int(data['Loan Amount']),  #/100
         round(float(data['Loan Percent Income']) / 100, 2),
         data['Previous Defaults'],
         int(data['Credit History']), 
     ]], columns=cols)
 
-    # Make prediction
+    # make prediction
     prediction = model.predict(input_data)[0]
     prob = model.predict_proba(input_data)[0]
-    print(prob)
+    print(prediction)
+  
 
-    # Prepare the result message
+    # prepare the result message
     result_message = {
         1: f"The Customer is capable of DEFAULTING. Hence it is RISKY to provide loan! The risk is {prob[1]*100:.2f}%.",
         0: f"The Customer is NOT capable of DEFAULTING. Hence it is POSSIBLE to provide loan! The risk is {prob[1]*100:.2f}%."
     }
-    prediction_result = result_message.get(prediction, "Unknown Prediction")
-    print(data)
+    result_short_message = {
+        1: "Default Risk !!",
+        0: "Safe"
+    }
 
-    return render_template('result.html',data=data, prediction=prediction_result)
+    prediction_result = result_message[prediction]
+
+    # print(type(prediction_result))
+
+    # make graph
+    risk=[round(prob[1]*100,2), round(prob[0]*100,2)]
+    explode = (0.1, 0)
+    l=["Default Risk", "Not Default"]
+    colours=["#fc0b03", "#37c414"]
+
+    plt.pie(risk, explode = explode, labels = l, colors=colours,
+        autopct = '%1.1f%%',shadow = True, 
+        startangle = 90, 
+        wedgeprops = {"edgecolor":"black", 
+                    'linewidth': 2, 
+                    'antialiased': True}) 
+    
+  
+    # saving graph in static file
+    plt.savefig(f"static\pie_chart.png", dpi=80)
+    plt.clf() 
+
+    return render_template('result.html',prediction=prediction_result, risk=prob[1]*100, id=id, result_short_message=result_short_message[prediction], result=prediction)
 
 
 if __name__ == "__main__":
