@@ -66,7 +66,7 @@
 </head>
 <body>
 <div class="container">
-    <h1>Default Risk Prediction</h1>
+    <h1 style="font-family: 'Times New Roman', serif;">Default Risk Predictor</h1>
     <form method="POST" action="/predict" id="loanForm">
         <div class="row">
             <div class="col-50">
@@ -88,7 +88,9 @@
         </div>
         <div class="form-group">
             <label for="annualIncome">Annual Income (Rs):</label>
-            <input type="number" id="annualIncome" name="annualIncome" required title="Enter Expected income if you are a student">
+            <input type="number" id="annualIncome" name="annualIncome" required title="Enter expected income if you are a student"
+                >
+            
         </div>
         <div class="form-group">
             <label for="homeOwnership">What is the type of House Ownership:</label>
@@ -145,8 +147,8 @@
             <label for="creditHistory">The length of credit history for the individual (in years):</label>
             <input type="number" id="creditHistory" name="creditHistory" min="0" max="50" required>
         </div>
-        <button type="submit" class="btn">Predict Default status</button>
-        <a href="/" class="btn-reset">Reset</a>
+        <button type="submit" class="btn btn-primary mt-3" style="font-size: 17px;">Predict Default status</button>
+        <a href="/" class="btn-reset" style="font-size: 15px;">Reset</a>
     </form>
     <div class="result" id="result">
         {% if prediction %}
