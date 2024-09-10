@@ -12,20 +12,20 @@ The Default Risk Predictor is a Flask-based application that predicts whether a 
 
 ## Usage:
 * ### Input the required data fields:
-* Age of the individual
-* Annual income
-* Home ownership status (Rent, Mortgage, Own, Other)
-* Employment length (in years)
-* Loan intent (e.g., Personal, Home Improvement)
-* Loan grade (A to G)
-* Loan amount
-* Percent of income required to repay the loan
-* Credit bureau's historical default status (Yes/No)
-* Credit history length (in years)
+  * Age of the individual
+  * Annual income
+  * Home ownership status (Rent, Mortgage, Own, Other)
+  * Employment length (in years)
+  * Loan intent (e.g., Personal, Home Improvement)
+  * Loan grade (A to G)
+  * Loan amount
+  * Percent of income required to repay the loan
+  * Credit bureau's historical default status (Yes/No)
+  * Credit history length (in years)
 
 * ### Click on the "**Predict Default status**" button to get:
-* The predicted loan status (default or non-default).
-* Risk percentage for providing a loan to the borrower.
+  * The predicted loan status (default or non-default).
+  * Risk percentage for providing a loan to the borrower.
   
 * ### Click on the "Reset" button to reset the app
 
@@ -38,9 +38,9 @@ The Default Risk Predictor is a Flask-based application that predicts whether a 
 * **Label**: loan_status where 1 indicates default and 0 indicates non-default.
 
 * **Metrics**:
- * **F1 Score**: 0.8279
- * **Accuracy**: 0.9327
- * **Matthews correlation coefficient (MCC)**: 0.7953
+  * **F1 Score**: 0.8279
+  * **Accuracy**: 0.9327
+  * **Matthews correlation coefficient (MCC)**: 0.7953
 
 * **Preprocessing**:
 * Duplicated data is dropped.
@@ -58,7 +58,7 @@ The Default Risk Predictor is a Flask-based application that predicts whether a 
 ## Technologies Used
 * **Preprocessing**: Pandas, Numpy, Scikit-learn (IterativeImputer(KNeighborsRegressor), StandardScaler, OneHotEncoder, SMOTE, RandomizedSearchCV)
 * **Machine Learning**: LightGBM (LGBMClassifier), Scikit-learn, XGBoost (XGBClassifier)
-* * **Model Saving**: Pickle (.pkl format)
+* **Model Saving**: Pickle (.pkl format)
 * **Backend**: Flask
 * **Frontend**: HTML, Jinja, CSS
 * **Deployment**: Render.com
