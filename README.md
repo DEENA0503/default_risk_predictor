@@ -1,7 +1,8 @@
 # Default Risk Predictor
 
-### The app is deployed and hosted on Render.com, but the free tier only runs the app when accessed, and it goes to sleep during inactivity
 ## App link: https://credit-risk-modeling-hgn9.onrender.com
+* The app is deployed and hosted on Render.com, but the free tier only runs the app when accessed, and it goes to sleep during inactivity
+  
 ## Overview
 The Default Risk Predictor is a Flask-based application that predicts whether a borrower is likely to default on a loan based on various financial and demographic factors. It uses a **LightGBM classifier** to solve a binary classification problem, predicting loan default with a high level of accuracy and precision.
 
