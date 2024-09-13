@@ -75,6 +75,7 @@ The dataset is large and has outliers. LightGBM is particularly **efficient with
 * **Automatic Credit History Fetching**: Based on the borrower’s ID, the app can automatically fetch credit points and credit history details provided by the RBI, eliminating the need to explicitly ask for credit history.
 * **Real-time Data Integration**: Incorporate real-time loan data for continuous model updates.
 * **User Interface Improvement**: Enhance the UI for a more intuitive user experience.
+* **App Security**: Secure the application with a robust login system and protected API endpoints.
 
 ## Technologies Used
 * **Preprocessing**: Pandas, Numpy, Scikit-learn (IterativeImputer(KNeighborsRegressor), StandardScaler, OneHotEncoder, SMOTE, RandomizedSearchCV)
