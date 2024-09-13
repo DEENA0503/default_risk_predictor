@@ -9,7 +9,7 @@ The Default Risk Predictor is a Flask-based application that predicts whether a 
 The dataset is large and has outliers. LightGBM is particularly **efficient with large datasets** because it uses gradient boosting to build a series of decision trees with **leaf-wise tree growth strategy** making it **faster** and more **memory-efficient** on large datasets. Outliers often get less importance in decision trees which makes LightGBM classifier **less sensitive to ouliers**. 
 
 ## Key Features:
-* Predicts loan default status with an **F1 score** of **0.8341** and **Accuracy** of **0.9351**.
+* Predicts loan default status with an **F1 score** of **0.8354** and **Accuracy** of **0.9353**.
 * Provides a detailed **risk percentage** based on prediction probabilities.
 * Preprocessed data with outlier removal, imputation, and feature scaling.
 * Handles data imbalance using **SMOTE** (Synthetic Minority Over-sampling Technique).
@@ -50,9 +50,9 @@ The dataset is large and has outliers. LightGBM is particularly **efficient with
 * **Label**: loan_status where 1 indicates default and 0 indicates non-default.
 
 * **Metrics**:
-  * **F1 Score**: 0.8341
-  * **Accuracy**: 0.9351
-  * **Matthews correlation coefficient (MCC)**: 0.8029
+  * **F1 Score**: 0.8354
+  * **Accuracy**: 0.9353
+  * **Matthews correlation coefficient (MCC)**: 0.8039
     
 * **Feature Selection**:
   * The loan_int_rate column was dropped
