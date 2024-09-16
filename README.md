@@ -76,8 +76,8 @@ The dataset is large and has outliers. LightGBM is particularly **efficient with
 * **Data Source**: The dataset is simulated by a credit bureau.
 * **Data Shape**: The dataset contains 32,581 rows and 12 columns.
 * **Income Scale Mismatch**: The average income in India is ₹3,87,500, but the average income in the dataset is 66,074.8, indicating a currency difference. This mismatch suggests that the income and loan amounts in the dataset are more **aligned with US financial figures** rather than Indian currency.
-**The discrepancy implies that the dataset might be based on assumptions or financial data typical of the USA.**
 
+**The discrepancy implies that the dataset might be based on assumptions or financial data typical of the USA.**
 
 ## Future Improvements
 * **Interest Calculation**: Calculate interest rates dynamically based on loan intent and risk profile.
