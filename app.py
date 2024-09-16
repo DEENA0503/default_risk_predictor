@@ -90,27 +90,24 @@ def predict():
                     'linewidth': 2, 
                     'antialiased': True}) 
     
-      # Directory and file management
+      # directory and file management
     pie_charts_dir = 'static/pie_charts/'
     os.makedirs(pie_charts_dir, exist_ok=True)
     
-    # Delete old images
+    # delete old images
     for filename in os.listdir(pie_charts_dir):
         file_path = os.path.join(pie_charts_dir, filename)
         if os.path.isfile(file_path):
             os.remove(file_path)
 
-    # Save new image
+    # save new image
     timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
     filename = f"pie_chart_{timestamp}.png"
     filepath = os.path.join(pie_charts_dir, filename)
     plt.savefig(filepath, dpi=80)
     plt.clf()
-    # # saving graph in static file
-    # plt.savefig(f"static\pie_chart.png", dpi=80)
-    # plt.clf() 
 
-    return render_template('result.html',prediction=prediction_result, risk=prob[1]*100, id=id, result_short_message=result_short_message[prediction], result=prediction)
+    return render_template('result.html',prediction=prediction_result, risk=prob[1]*100, id=id, result_short_message=result_short_message[prediction], result=prediction, filename=filename)
 
 
 if __name__ == "__main__":
