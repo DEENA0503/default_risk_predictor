@@ -90,7 +90,7 @@ The dataset is large and has outliers. LightGBM is particularly **efficient with
 * **Preprocessing**: Pandas, Numpy, Scikit-learn (IterativeImputer(KNeighborsRegressor), StandardScaler, OneHotEncoder, SMOTE, RandomizedSearchCV)
 * **Machine Learning**: Scikit-learn, LightGBM (LGBMClassifier), XGBoost (XGBClassifier), CatBoost (CatBoostClassifier), StackingClassifier
 * **Model Saving**: Pickle (.pkl format)
-* **Backend**: Flask
+* **Backend**: Python, Flask, Matplotlib
 * **Frontend**: HTML, Jinja2, CSS
 * **Hosting**: Git hub
 * **Deployment**: Render.com
