@@ -45,12 +45,12 @@ def predict():
 
     input_data = pd.DataFrame([[
         int(data['Age']), 
-        int(data['Annual Income']), # /100
+        int(data['Annual Income']),
         data['Home Ownership'],
         float(data['Employment Length']),
         data['Loan Intent'], 
         data['Loan Grade'], 
-        int(data['Loan Amount']),  #/100
+        int(data['Loan Amount']),
         round(float(data['Loan Percent Income']) / 100, 2),
         data['Previous Defaults'],
         int(data['Credit History']), 
@@ -89,10 +89,25 @@ def predict():
                     'linewidth': 2, 
                     'antialiased': True}) 
     
-  
-    # saving graph in static file
-    plt.savefig(f"static\pie_chart.png", dpi=80)
-    plt.clf() 
+      # Directory and file management
+    pie_charts_dir = 'static/pie_charts/'
+    os.makedirs(pie_charts_dir, exist_ok=True)
+    
+    # Delete old images
+    for filename in os.listdir(pie_charts_dir):
+        file_path = os.path.join(pie_charts_dir, filename)
+        if os.path.isfile(file_path):
+            os.remove(file_path)
+
+    # Save new image
+    timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+    filename = f"pie_chart_{timestamp}.png"
+    filepath = os.path.join(pie_charts_dir, filename)
+    plt.savefig(filepath, dpi=80)
+    plt.clf()
+    # # saving graph in static file
+    # plt.savefig(f"static\pie_chart.png", dpi=80)
+    # plt.clf() 
 
     return render_template('result.html',prediction=prediction_result, risk=prob[1]*100, id=id, result_short_message=result_short_message[prediction], result=prediction)
 
