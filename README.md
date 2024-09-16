@@ -1,8 +1,8 @@
 # Credit Default Risk Predictor
 
 ## Business Context
-Lenders must assess the **creditworthiness** of potential borrowers before approving loans. This predictor helps financial institutions **reduce credit default risk**, which is the probability that a borrower will fail to repay the principal and interest, resulting in financial loss. By using machine learning to predict default risk, lenders can make more informed decisions by properly managing credit risk to **avoid severe financial losses**, enhance loan approval processes, and maintain the health of their lending portfolios.
-The predictor also calculates the risk percentage, allowing lenders to **adjust interest rates based on the borrower’s risk profile**, optimizing lending strategies.
+Lenders must assess the **creditworthiness** of potential borrowers before approving loans. This predictor helps financial institutions **reduce the financial losses** arising due to credit default by calculation the probability that a borrower will fail to repay the principal and interest. It uses machine learning to predict credit default risk, to help lenders make more informed decisions and expedite loan approval processes and **maintain the health of their lending portfolios** by averting potential **NPAs (Non performing assets)**.
+The predictor also calculates the **risk percentage**, allowing lenders to **adjust interest rates based on the borrower’s risk profile**, optimizing lending strategies.
   
 ## Overview
 The Default Risk Predictor is a Flask-based application that predicts whether a borrower is likely to default on a loan based on various financial and demographic factors. It uses a **LightGBM classifier** to solve a binary classification problem, predicting loan default with a **high level of accuracy** and precision.
@@ -22,12 +22,12 @@ The dataset is large and has outliers. LightGBM is particularly **efficient with
 ## Usage:
 * ### Input the required data fields:
   * Age of the individual
-  * Annual income
+  * Annual income (in $)
   * Home ownership status (Rent, Mortgage, Own, Other)
   * Employment length (in years)
   * Loan intent (e.g., Personal, Home Improvement)
   * Loan grade (A to G)
-  * Loan amount
+  * Loan amount (in $)
   * Percent of income required to repay the loan
   * Credit bureau's historical default status (Yes/No)
   * Credit history length (in years)
@@ -64,25 +64,35 @@ The dataset is large and has outliers. LightGBM is particularly **efficient with
   * Numerical columns are scaled using **StandardScaler**.
   * Categorical columns are one-hot encoded using **OneHotEncoder**.
   * **SMOTE** is applied to oversample the minority class.
-  * Hyperparameter tuning was performed using **RandomizedSearchCV** to optimize model performance.
+  * Hyperparameter tuning was performed using **RandomizedSearchCV** on XGBoost, LightBGM, CatBoost, StackingClassifier to optimize model performance.
 
 ## Important Notes:
 * The loan_int_rate column was dropped because
   * interest rates are determined post-loan approval and are based on the risk assessment of the borrower
 * The model outputs the default probability, which is communicated as a risk percentage.
+* Post Hyperparameter Tuning the **StackingClassifier** model (base models = [XGBoost, LightBGM, CatBoost], meta_model=[Logistic Regression]) achieved the highest **F1 score of 0.8429**, followed by **CatBoost** with **0.8412**, **LightGBM** with **0.8354**, and **XGBoost** with **0.8279**. Despite stacking and CatBoost performing better, the deployed model on GitHub uses LightGBM due to .pkl **file size limitations**.
+
+## About the Data and Assumptions
+* **Data Source**: The dataset is simulated by a credit bureau.
+* **Data Shape**: The dataset contains 32,581 rows and 12 columns.
+* **Income Scale Mismatch**: The average income in India is ₹3,87,500, but the average income in the dataset is 66,074.8, indicating a currency difference. This mismatch suggests that the income and loan amounts in the dataset are more **aligned with US financial figures** rather than Indian currency.
+**The discrepancy implies that the dataset might be based on assumptions or financial data typical of the USA.**
+
 
 ## Future Improvements
-* **Automatic Credit History Fetching**: Based on the borrower’s ID, the app can automatically fetch credit points and credit history details provided by the RBI, eliminating the need to explicitly ask for credit history.
+* **Interest Calculation**: Calculate interest rates dynamically based on loan intent and risk profile.
+* **Automatic Credit History Fetching**: Based on the borrower’s ID, the app can automatically fetch Credit Score and credit history details provided by  the **FICO(Fair Isaac Corporation)**, eliminating the need to explicitly mention credit history.
 * **Real-time Data Integration**: Incorporate real-time loan data for continuous model updates.
 * **User Interface Improvement**: Enhance the UI for a more intuitive user experience.
 * **App Security**: Secure the application with a robust login system and protected API endpoints.
 
 ## Technologies Used
 * **Preprocessing**: Pandas, Numpy, Scikit-learn (IterativeImputer(KNeighborsRegressor), StandardScaler, OneHotEncoder, SMOTE, RandomizedSearchCV)
-* **Machine Learning**: LightGBM (LGBMClassifier), Scikit-learn, XGBoost (XGBClassifier)
+* **Machine Learning**: Scikit-learn, LightGBM (LGBMClassifier), XGBoost (XGBClassifier), CatBoost (CatBoostClassifier), StackingClassifier
 * **Model Saving**: Pickle (.pkl format)
 * **Backend**: Flask
 * **Frontend**: HTML, Jinja2, CSS
+* **Hosting**: Git hub
 * **Deployment**: Render.com
 
 ## How to Run the App Locally
