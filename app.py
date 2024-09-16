@@ -45,12 +45,12 @@ def predict():
 
     input_data = pd.DataFrame([[
         int(data['Age']), 
-        int(data['Annual Income']), # /100
+        int(data['Annual Income']),
         data['Home Ownership'],
         float(data['Employment Length']),
         data['Loan Intent'], 
         data['Loan Grade'], 
-        int(data['Loan Amount']),  #/100
+        int(data['Loan Amount']),
         round(float(data['Loan Percent Income']) / 100, 2),
         data['Previous Defaults'],
         int(data['Credit History']), 
