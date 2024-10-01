@@ -5,72 +5,85 @@ Lenders must assess the **creditworthiness** of potential borrowers before appro
 The predictor also calculates the **risk percentage**, allowing lenders to **adjust interest rates based on the borrower’s risk profile**, optimizing lending strategies.
   
 ## Overview
-The Default Risk Predictor is a Flask-based application that predicts whether a borrower is likely to default on a loan based on various financial and demographic factors. It uses a **LightGBM classifier** to solve a binary classification problem, predicting loan default with a **high level of accuracy** and precision.
+The Default Risk Predictor is a Flask-based application that predicts whether a borrower is likely to default on a loan based on various financial and demographic factors. It uses a **`LightGBM classifier`** to solve a binary classification problem, predicting loan default with a **high level of accuracy** and precision.
 The dataset is large and has outliers. LightGBM is particularly **efficient with large datasets** because it uses gradient boosting to build a series of decision trees with **leaf-wise tree growth strategy** making it **faster** and more **memory-efficient** on large datasets. Outliers often get less importance in decision trees which makes LightGBM classifier **less sensitive to ouliers**. 
 
 ## Key Features:
-* Predicts loan default status with an **F1 score** of **0.8354** and **Accuracy** of **0.9353**.
+* Predicts loan default status with an **F1 score** of **`0.8354`** and **Accuracy** of **`0.9353`**.
 * Provides a detailed **risk percentage** based on prediction probabilities.
 * Preprocessed data with outlier removal, imputation, and feature scaling.
-* Handles data imbalance using **SMOTE** (Synthetic Minority Over-sampling Technique).
+* Handles data imbalance using **`SMOTE`** **(Synthetic Minority Over-sampling Technique)**.
 * Categorical features are one-hot encoded, and numerical features are standardized for optimal performance.
-* Deployed using **Render.com** for live access.
+* Deployed using `Render.com` for live access.
 
 ## App link: https://credit-risk-modeling-hgn9.onrender.com
-* The app is deployed and hosted on Render.com, but the free tier only runs the app when accessed, and it goes to sleep during inactivity
+* The app is deployed and hosted on `Render.com` but the free tier only runs the app when accessed, and it goes to sleep during inactivity
 
 ## Usage:
 * ### Input the required data fields:
-  * Age of the individual
-  * Annual income (in $)
-  * Home ownership status (Rent, Mortgage, Own, Other)
-  * Employment length (in years)
-  * Loan intent (e.g., Personal, Home Improvement)
-  * Loan grade (A to G)
-  * Loan amount (in $)
-  * Percent of income required to repay the loan
-  * Credit bureau's historical default status (Yes/No)
-  * Credit history length (in years)
+  * `Age` of the individual
+  * `Annual income` (in $)
+  * `Home ownership status` (`Rent`, `Mortgage`, `Own`, `Other`)
+  * `Employment length` (in years)
+  * `Loan intent` (e.g., `Personal`, `Home Improvement`)
+  * `Loan grade` (A to G)
+  * `Loan amount` (in $)
+  * `Percent of income required to repay the loan`
+  * `Credit bureau's historical default status` (Yes/No)
+  * `Credit history length` (in years)
 
-* ### Click on the "**Predict Default status**" button to get:
+  ![image](https://github.com/user-attachments/assets/7b1f8771-c748-4fa1-8df8-906a3cf33ca6)
+
+
+* ### Click on the **`Predict Default status`** button to get:
   * The predicted loan status (default or non-default).
   * Risk percentage for providing a loan to the borrower.
-  
-* ### Click on the "Reset" button to:
+
+* ### Click on the `Reset` button to:
   * reset the app
-* ### Click on the "Go to Home" button  to:
+
+ ![image](https://github.com/user-attachments/assets/87db8093-8ec1-4bf2-9391-6bc884611773)
+
+
+* ### Click on the `Go to Home` button  to:
   * use the predictor again with new values
 
 ## Model Information
 
-* **Algorithm**: LightGBM (LGBMClassifier)
+* **Algorithm**: `LightGBM` (LGBMClassifier)
+  
+  ![image](https://github.com/user-attachments/assets/5a58a630-6f89-4132-ae54-b9a13ccffdf8)
 
-* **Dataset Shape**: (32581, 12)
 
-* **Label**: loan_status where 1 indicates default and 0 indicates non-default.
+* **Dataset Shape**: `(32581, 12)`
+
+* **Label**: loan_status where `1` indicates default and `0` indicates non-default.
 
 * **Metrics**:
-  * **F1 Score**: 0.8354
-  * **Accuracy**: 0.9353
-  * **Matthews correlation coefficient (MCC)**: 0.8039
+  * **F1 Score**: `0.8354`
+  * **Accuracy**: `0.9353`
+  * **Matthews correlation coefficient (MCC)**: `0.8039`
     
 * **Feature Selection**:
-  * The loan_int_rate column was dropped
+  * The `loan_int_rate` column was dropped<br>
+
+* **Feature Importance**<br>
+  ![image](https://github.com/user-attachments/assets/65bb039d-377a-4ec8-ba8b-b89ba44fe9eb)
 
 * **Preprocessing**:
   * Duplicated data is dropped.
   * Outliers are removed.
-  * Missing values are imputed using **IterativeImputer**(which uses **KNeighborsRegressor** as an estimator) as the data is **Missing at random**
-  * Numerical columns are scaled using **StandardScaler**.
-  * Categorical columns are one-hot encoded using **OneHotEncoder**.
-  * **SMOTE** is applied to oversample the minority class.
-  * Hyperparameter tuning was performed using **RandomizedSearchCV** on XGBoost, LightBGM, CatBoost, StackingClassifier to optimize model performance.
+  * Missing values are imputed using **`IterativeImputer`**(which uses **`KNeighborsRegressor`** as an estimator) as the data is **Missing at random**
+  * Numerical columns are scaled using **`StandardScaler`**.
+  * Categorical columns are one-hot encoded using **`OneHotEncoder`**.
+  * **`SMOTE`** is applied to oversample the minority class.
+  * Hyperparameter tuning was performed using **`RandomizedSearchCV`** on `XGBoost`, `LightBGM`, `CatBoost`, `StackingClassifier` to optimize model performance.
 
 ## Important Notes:
 * The loan_int_rate column was dropped because
   * interest rates are determined post-loan approval and are based on the risk assessment of the borrower
 * The model outputs the default probability, which is communicated as a risk percentage.
-* Post Hyperparameter Tuning the **StackingClassifier** model (base models = [XGBoost, LightBGM, CatBoost], meta_model=[Logistic Regression]) achieved the highest **F1 score of 0.8429**, followed by **CatBoost** with **0.8412**, **LightGBM** with **0.8354**, and **XGBoost** with **0.8279**. Despite stacking and CatBoost performing better, the deployed model on GitHub uses LightGBM due to .pkl **file size limitations**.
+* Post Hyperparameter Tuning the **`StackingClassifier`** model (base models = [`XGBoost, LightBGM, CatBoost`], meta_model=[`Logistic Regression`]) achieved the highest **F1 score of `0.8429`**, followed by **`CatBoost`** with **`0.8412`**, **`LightGBM`** with **`0.8354`**, and **`XGBoost`** with **`0.8279`**. Despite stacking and CatBoost performing better, the deployed model on GitHub uses LightGBM due to `.pkl` **file size limitations**.
 
 ## About the Data and Assumptions
 * **Data Source**: The dataset is simulated by a credit bureau.
