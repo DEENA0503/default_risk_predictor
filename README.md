@@ -63,7 +63,8 @@ The dataset is large and has outliers. LightGBM is particularly **efficient with
   * **F1 Score**: `0.8354`
   * **Accuracy**: `0.9353`
   * **Precision Score**: `0.9424`
-  * ** Recall Score**: `0.7503`
+  * **Recall Score**: `0.7503`
+  * **ROC AUC Score**:`0.8687`
   * **Matthews correlation coefficient (MCC)**: `0.8039`
     
 * **Feature Selection**:
